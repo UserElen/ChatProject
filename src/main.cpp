@@ -38,7 +38,18 @@ int main()
 		std::cerr << "failed to listen";
 		return -1;
 	}
-	std::cin.get();
+	
+	sockaddr_in client_addr;
+	socklen_t client_len = sizeof(client_addr);
+	
+	int accept_var = accept(socket_fd, reinterpret_cast<struct sockaddr*>(&client_addr), &client_len);
+	
+	if(accept_var < 0) {
+		std::cerr << "failed accept";
+		return -1;
+	}
+	std::cout << "CLient conected yeah";
+	std::cin.get();	
 	close(socket_fd);
 	return 0;
 }
